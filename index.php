@@ -8,5 +8,6 @@ require_once("model_fabric/user_fabric.php");
 
 
 // DAL
-$user = UserFabric::SelectByGUID("12");
+$user = UserFabric::SelectByGUID("999");
+
 var_dump($user);
