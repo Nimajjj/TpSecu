@@ -1,25 +1,63 @@
 <?php
 
 require_once("a_model_fabric.php");
+require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/user.php");
 
 class UserFabric extends A_ModelFabric {
-  static private $instance = null;
-
-  // Main
-  public static function GetInstance() {
-    if(!self::$instance) {
-      self::$instance = new UserFabric();
-    }
-    return self::$instance;
-  }
-
   // Select
-  public static function SelectByGUID(string $_guid) {
+  public static function SelectByGUID(int $_guid) {
+    // prepare query
     $query = new Query("user");
     $query->Condition("guid", "=", $_guid);
 
-    return self::$dal->DbSelect($query);
+    // execute query
+    $row = self::$dal->DbSelect($query);
+
+    // if select return null
+    if (!$row) {
+      return null;
+    }
+
+    // create user model
+    $user = new User(
+      $row["email"],
+      $row["guid"]
+    );
+
+    return $user;
   }
 
+
+  public static function SelectByEmail(string $_email) {
+    // prepare query
+    $query = new Query("user");
+    $query->Condition("email", "=", $_email);
+
+    // execute query
+    $row = self::$dal->DbSelect($query);
+
+    // if select return null
+    if (!$row) {
+      return null;
+    }
+
+    // create user model
+    $user = new User(
+      $row["email"],
+      $row["guid"]
+    );
+
+    return $user;
+  }
+
+
   // Insert
+  public static function Insert($_model) {
+    $query = new Query("user");
+    $query->Parameter([
+      "email" => $_model->email
+    ]);
+
+    return self::$dal->DbInsert($query);
+  }
 }

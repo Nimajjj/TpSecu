@@ -10,9 +10,12 @@ abstract class A_ModelFabric {
   }
 
   // Select
-  abstract static function SelectByGUID(string $_guid);
+  abstract static function SelectByGUID(int $_guid);
 
   // Insert
-  abstract public function Insert($_model);
+  abstract static function Insert(mixed $_model);
 }
+
+// Only exception where i use a public (static) method from an abstract class
+// Will not break if a moron call it multiple time...
 A_ModelFabric::Init();
