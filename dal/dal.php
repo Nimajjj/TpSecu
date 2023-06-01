@@ -24,9 +24,19 @@ class DAL {
       . $_q->table 
       . " WHERE " 
       . $_q->conditions["column"]
-      . $_q->conditions["condition"]
-      . $_q->conditions["value"]
-      . ";";
+      . $_q->conditions["condition"];
+
+    if (gettype($_q->conditions["value"]) != "integer") {
+      $query .= '"'
+        . $_q->conditions["value"]
+        . '";';
+    }
+    else {
+      $query .= $_q->conditions["value"]
+        . ";";
+    }
+
+    var_dump($query);
 
     $result = $this->db->query($query) or die("Unable to select db");
     $row = $result->fetch_assoc();
