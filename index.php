@@ -10,15 +10,13 @@
 <?php 
 require_once("dal/dal.php");
 require_once("dal/query.php");
-require_once("model_fabric/user_fabric.php");
+require_once("model_fabric/account_fabric.php");
+require_once("model/account.php");
 
 
 
-// DAL
-$u1 = UserFabric::SelectByGUID(1);
-var_dump($u1);
+var_dump(AccountFabric::SelectByGUID(1));
 echo "<br>";
 
-$u2 = UserFabric::SelectByEmail("garfield@wanadoo.com");
-var_dump($u2);
+var_dump(AccountFabric::SelectByEmail("abc@test.com"));
 echo "<br>";

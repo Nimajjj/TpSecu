@@ -20,7 +20,9 @@ class Query {
   }
 
   public function Parameter($_parameters) {
-    $this->parameters = $_parameters;
+    foreach ($_parameters as $key => $value) {
+      $this->parameters[$key] = $value;
+    }
     return $this;
   }
 }
