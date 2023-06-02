@@ -13,10 +13,3 @@ require_once("dal/query.php");
 require_once("model_fabric/account_fabric.php");
 require_once("model/account.php");
 
-
-
-var_dump(AccountFabric::SelectByGUID(1));
-echo "<br>";
-
-var_dump(AccountFabric::SelectByEmail("abc@test.com"));
-echo "<br>";
