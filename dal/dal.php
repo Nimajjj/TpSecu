@@ -36,7 +36,7 @@ class DAL {
         . ";";
     }
 
-    var_dump($query);
+    echo "<br>" . $query;
 
     $result = $this->db->query($query) or die("Unable to select db");
     $row = $result->fetch_assoc();
@@ -62,6 +62,8 @@ class DAL {
     }
 
     $query .= ") VALUES (" . $interogation . ");";
+
+    echo "<br>" . $query;
 
     $preparedQuerry = $this->db->prepare($query);
     $succeed = $preparedQuerry->execute($data);
