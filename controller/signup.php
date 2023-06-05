@@ -3,6 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/user_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_tmp_fabric.php");
 require_once("authentificator/authentificator.php");
 require_once("authentificator/identifier.php");
+require_once("secured_actioner/secured_actioner.php");
 
 class SignUp {
   public static function Execute() : string {
@@ -28,25 +29,28 @@ class SignUp {
     }
 
     // Register
-    $response = self::registerNewUser($email, $pwd);
+    $guid = "";
+    $response = self::registerNewUser($email, $pwd, $guid);
     if ($response) {
       return $response;
     }
     
     // Notify
     // The notifier should call the mailer here instead of the message below.
-    $verification_link = Authentificator::SecuredActioner($email);
+    $verification_link = SecuredActioner::ProvideOTP($guid);
     $response = "<br><br>A verification email as been sent to : " 
       . $email
       . "<br>=== EMAIL ===<br>"
-      . $verification_link
+      . '<a href="' . $verification_link . '">'
+      . "VERIFY"
+      . "</a>"
       . "<br>=============<br>";
 
     return $response;
   }
 
 
-  private static function registerNewUser(string $_email, string $_pwd) : ?string {
+  private static function registerNewUser(string $_email, string $_pwd, string &$_guid) : ?string {
     // register new user
     $guid = uniqid('', true);
     $user = new User(
@@ -72,6 +76,7 @@ class SignUp {
       return "An error occured during accountTmp creation";
     }
 
+    $_guid = $guid;
     return null;
   }
 }
