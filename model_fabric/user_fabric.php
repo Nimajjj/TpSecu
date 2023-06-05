@@ -5,7 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/user.php");
 
 class UserFabric extends A_ModelFabric {
   // Select
-  public static function SelectByGUID(int $_guid) {
+  public static function SelectByGUID(string $_guid) {
     // prepare query
     $query = new Query("user");
     $query->Condition("guid", "=", $_guid);

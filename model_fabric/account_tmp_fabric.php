@@ -6,7 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_tmp.php");
 
 class AccountTmpFabric extends A_ModelFabric {
   // Select
-  public static function SelectByGUID(int $_guid) {
+  public static function SelectByGUID(string $_guid) {
     // prepare query
     $query = new Query("accounttmp");
     $query->Condition("guid", "=", $_guid);
