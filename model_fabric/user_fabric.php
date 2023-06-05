@@ -55,6 +55,7 @@ class UserFabric extends A_ModelFabric {
   public static function Insert($_model) {
     $query = new Query("user");
     $query->Parameter([
+      "guid" => $_model->guid,
       "email" => $_model->email
     ]);
 

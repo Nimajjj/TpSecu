@@ -48,14 +48,17 @@ class SignUp {
 
   private static function registerNewUser(string $_email, string $_pwd) : ?string {
     // register new user
-    $user = new User($_email);
+    $guid = uniqid('', true);
+    $user = new User(
+      $_email,
+      $guid
+    );
     if (!UserFabric::Insert($user)) {
       // problem
       return "An error occured during user creation";
     }
 
     // create temp account and hash pwd
-    $guid = UserFabric::SelectByEmail($_email)->guid;
     $salt = random_bytes(16);
     
     $accountTmp = new AccountTmp(
