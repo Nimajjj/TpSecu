@@ -1,6 +1,9 @@
 <?php
+namespace App\ModelFabric;
 
 require_once("dal/dal.php");
+
+use App\Dal\Dal;
 
 abstract class A_ModelFabric {
   static protected $dal = null;

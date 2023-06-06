@@ -1,4 +1,5 @@
 <?php
+namespace App\ModelFabric;
 
 require_once("a_model_fabric.php");
 require_once("user_fabric.php");

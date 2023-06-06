@@ -1,5 +1,5 @@
 <?php
-require_once("identifier.php");
+namespace App\Controller\Authentificator;
 
 class Authentificator {
   public static function Identify(string $_email, string $_pwd) : IdentifyCase {

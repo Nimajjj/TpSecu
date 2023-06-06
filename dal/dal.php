@@ -1,4 +1,5 @@
 <?php
+namespace App\Dal;
 
 require_once("dbconfig.php");
 require_once("query.php");
@@ -9,7 +10,7 @@ class DAL {
   private $db = null;
   
   private function __construct() {
-    $this->db = new mysqli(HOST, USERNAME, PASSWORD, DB_NAME);
+    $this->db = new \mysqli(HOST, USERNAME, PASSWORD, DB_NAME);
   }
   
   public static function GetInstance() {

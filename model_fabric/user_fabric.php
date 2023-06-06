@@ -1,7 +1,11 @@
 <?php
+namespace App\ModelFabric;
 
 require_once("a_model_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/user.php");
+
+use App\Dal\Query;
+use App\Model\User;
 
 class UserFabric extends A_ModelFabric {
   // Select

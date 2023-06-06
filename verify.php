@@ -8,20 +8,23 @@
 <br><br>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/controller/secured_actioner/secured_actioner.php");
+require_once("controller/secured_actioner/secured_actioner.php");
+
+use App\Controller\SecuredActioner\SecuredActioner;
+use App\Controller\SecuredActioner\OtpState;
 
 if (isset($_GET["otp"])) {
   $response = SecuredActioner::CheckOTP($_GET["otp"]);
-
+ 
   switch ($response) {
     case OtpState::WaitingForValidation:
       echo "Waiting for validation";
       break;
 
-    case OtpState::AlreadyValidated:
-      echo "Already validated";
+    case OtpState::ValidityExpired:
+      echo "Validity expired";
       break;
-
+        
     case OtpState::NotFound:
       echo "Not found";
       break;

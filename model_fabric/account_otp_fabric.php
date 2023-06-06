@@ -1,12 +1,16 @@
 <?php
+namespace App\ModelFabric;
 
 require_once("a_model_fabric.php");
 require_once("user_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_otp.php");
 
+use App\Dal\Query;
+use App\Model\AccountOTP;
+
 class AccountOTPFabric extends A_ModelFabric {
   // Select
-  public static function SelectByGUID(string $_guid) {
+  public static function SelectByGUID(string $_guid) : ?AccountOTP  {
     // prepare query
     $query = new Query("accountotp");
     $query->Condition("guid", "=", $_guid);
@@ -28,6 +32,29 @@ class AccountOTPFabric extends A_ModelFabric {
 
     return $account_otp;
 
+  }
+
+  public static function SelectByOtp(string $_otp) : ?AccountOTP {
+    // prepare query
+    $query = new Query("accountotp");
+    $query->Condition("otp", "=", $_otp);
+
+    // execute query
+    $row = self::$dal->DbSelect($query);
+
+    // if select return null
+    if (!$row) {
+      return null;
+    }
+
+    // create user model
+    $account_otp = new AccountOTP(
+      $row["otp"],
+      $row["validity"],
+      $row["guid"]
+    );
+
+    return $account_otp;
   }
 
 
