@@ -1,11 +1,14 @@
 <?php
 namespace App\Controller\SecuredActioner;
 
+require_once $_SERVER['DOCUMENT_ROOT'] . ("/util/otp_generator.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_otp.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_otp_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/user_fabric.php");
 
+use App\Util\OtpGenerator;
 use App\Model\User;
+use App\Model\AccountOTP;
 use App\ModelFabric\UserFabric;
 use App\ModelFabric\AccountOTPFabric;
 
@@ -17,7 +20,7 @@ enum OtpState {
 
 class SecuredActioner {
   public static function ProvideOTP(string $_guid) : string {
-    $otp = generate_otp();
+    $otp = OtpGenerator::Gen();
 
     $accountOtp = new AccountOTP(
       $otp,

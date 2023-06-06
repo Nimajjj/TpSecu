@@ -5,6 +5,8 @@ require_once("a_model_fabric.php");
 require_once("user_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_tmp.php");
 
+use App\Dal\Query;
+
 class AccountTmpFabric extends A_ModelFabric {
   // Select
   public static function SelectByGUID(string $_guid) {
