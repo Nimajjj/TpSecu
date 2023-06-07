@@ -10,6 +10,18 @@ $view = "template/";
 if ($uri === 'signup' && $isGetMethod) {
   $view .= "signup.php";
 }
+else if ($uri === "signin") {
+  $view .= "signin.php";
+}
+else if ($uri === "change_pwd") {
+  $view .= "change_pwd.php";
+}
+else if ($uri === "signed_up") {
+  $view .= "signed_up.php";
+}
+else if ($uri === "verify") {
+  $view .= "verify.php";
+}
 else {
   $view .= "root.php";
 }
