@@ -1,4 +1,5 @@
 <?php
+namespace App\Dal;
 
 class Query {
   public $table;

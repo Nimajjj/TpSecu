@@ -1,6 +1,9 @@
 <?php
+namespace App\ModelFabric;
 
 require_once("dal/dal.php");
+
+use App\Dal\Dal;
 
 abstract class A_ModelFabric {
   static protected $dal = null;
@@ -10,7 +13,7 @@ abstract class A_ModelFabric {
   }
 
   // Select
-  abstract static function SelectByGUID(int $_guid);
+  abstract static function SelectByGUID(string $_guid);
 
   // Insert
   abstract static function Insert(mixed $_model);

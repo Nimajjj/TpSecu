@@ -1,4 +1,5 @@
 <?php
+namespace App\Util;
 
 function HashPassword($_pwd, $_salt) : string {
   return hash("sha512", $_pwd . $_salt);

@@ -1,4 +1,5 @@
 <?php
+namespace App\Dal;
 
 require_once("dbconfig.php");
 require_once("query.php");
@@ -9,7 +10,7 @@ class DAL {
   private $db = null;
   
   private function __construct() {
-    $this->db = new mysqli(HOST, USERNAME, PASSWORD, DB_NAME);
+    $this->db = new \mysqli(HOST, USERNAME, PASSWORD, DB_NAME);
   }
   
   public static function GetInstance() {
@@ -69,5 +70,31 @@ class DAL {
     $succeed = $preparedQuerry->execute($data);
 
     return $succeed;
+  }
+
+  public function DbDelete(Query $_q) {
+    $query = "DELETE FROM " 
+      . $_q->table 
+      . " WHERE " 
+      . $_q->conditions["column"]
+      . $_q->conditions["condition"];
+
+    if (gettype($_q->conditions["value"]) != "integer") {
+      $query .= '"'
+        . $_q->conditions["value"]
+        . '";';
+    }
+    else {
+      $query .= $_q->conditions["value"]
+        . ";";
+    }
+
+    echo "<br>" . $query;
+
+    $preparedQuerry = $this->db->prepare($query);
+    $succeed = $preparedQuerry->execute();
+
+    return $succeed;
+
   }
 }

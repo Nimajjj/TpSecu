@@ -17,6 +17,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/controller/signup.php");
 
+use App\Controller\SignUp;
+
 if (isset($_POST["signup"])) {
   $response = SignUp::Execute();
   echo ($response) ? $response : "";

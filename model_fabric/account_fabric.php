@@ -1,12 +1,15 @@
 <?php
+namespace App\ModelFabric;
 
 require_once("a_model_fabric.php");
 require_once("user_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account.php");
 
+use App\Dal\Query;
+
 class AccountFabric extends A_ModelFabric {
   // Select
-  public static function SelectByGUID(int $_guid) {
+  public static function SelectByGUID(string $_guid) {
     // prepare query
     $query = new Query("account");
     $query->Condition("guid", "=", $_guid);
