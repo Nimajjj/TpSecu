@@ -52,8 +52,9 @@ class SignUp {
     $response = "<br><br>A verification email as been sent to : " 
       . $email
       . "<br>=== EMAIL ===<br>"
+      . "You have 2 hours to verify your account: "
       . '<a href="' . $verification_link . '">'
-      . "VERIFY"
+      . "VERIFY NOW"
       . "</a>"
       . "<br>=============<br>";
 

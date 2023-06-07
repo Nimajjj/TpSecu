@@ -72,4 +72,12 @@ class AccountOTPFabric extends A_ModelFabric {
 
     return self::$dal->DbInsert($query);
   }
+
+  // Delete
+  public static function DeleteByOTp(string $_otp): int {
+    $query = new Query("accountotp");
+    $query->Condition("otp", "=", $_otp);
+    
+    return self::$dal->DbDelete($query);
+  }
 }

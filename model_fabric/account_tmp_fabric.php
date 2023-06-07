@@ -6,6 +6,7 @@ require_once("user_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_tmp.php");
 
 use App\Dal\Query;
+use App\Model\AccountTmp;
 
 class AccountTmpFabric extends A_ModelFabric {
   // Select
@@ -42,7 +43,7 @@ class AccountTmpFabric extends A_ModelFabric {
 
 
   // Insert
-  public static function Insert($_model) {
+  public static function Insert($_model): int {
     $query = new Query("accounttmp");
     $query->Parameter([
       "pwd" => $_model->pwd,
@@ -54,5 +55,12 @@ class AccountTmpFabric extends A_ModelFabric {
     }
 
     return self::$dal->DbInsert($query);
+  }
+
+  public static function DeleteByGuid(string $_guid): int {
+    $query = new Query("accounttmp");
+    $query->Condition("guid", "=", $_guid);
+    
+    return self::$dal->DbDelete($query);
   }
 }

@@ -2,15 +2,22 @@
 namespace App\Controller\SecuredActioner;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/util/otp_generator.php");
+require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_otp.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_otp_fabric.php");
+require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_tmp_fabric.php");
 require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/user_fabric.php");
+require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_fabric.php");
 
+use App\Util\Debug;
 use App\Util\OtpGenerator;
 use App\Model\User;
+use App\Model\Account;
 use App\Model\AccountOTP;
 use App\ModelFabric\UserFabric;
+use App\ModelFabric\AccountFabric;
 use App\ModelFabric\AccountOTPFabric;
+use App\ModelFabric\AccountTMPFabric;
 
 enum OtpState {
   case WaitingForValidation;
@@ -42,23 +49,47 @@ class SecuredActioner {
 
     $user = UserFabric::SelectByGUID($accountOtp->guid);
 
-    $max_validity_time = strtotime("1 minute");
-    if (time() - strtotime($accountOtp->validity) > $max_validity_time) {
-      self::clearOTP($user);
+    $max_validity_time = new \DateTime();
+    $max_validity_time->modify("-2 hours");   // the user has 2 hours to validate otp
+    if ($accountOtp->validity > $max_validity_time) {
+      self::clearOTP($accountOtp->otp);
       return OtpState::ValidityExpired;
     }
-
-    self::clearOTP($user);
-    self::transfertTMP($user);
 
     return OtpState::WaitingForValidation;
   }
 
-  private static function clearOTP(User $_user) {
-
+  // return:
+  //   0: success
+  //   1: error
+  public static function ClearOTP(string $_otp): int {
+    return AccountOTPFabric::DeleteByOtp($_otp);
   }
 
-  private static function transfertTMP(User $_user) {
+  // Must be called before ClearOTP
+  // return:
+  //   0: success
+  //   1: error
+  public static function TransfertTMP(string $_otp): int {
+    // get account OTP 
+    $accountOtp = AccountOTPFabric::SelectByOtp($_otp);
 
+    if (!$accountOtp) {
+      return 1;
+    }
+
+    // get account TMP
+    $accountTmp = AccountTmpFabric::SelectByGUID($accountOtp->guid);
+
+    $account = new Account(
+      $accountTmp->pwd,
+      $accountTmp->salt,
+      $accountTmp->guid
+    );
+    
+    // Delete account TMP
+    AccountTmpFabric::DeleteByGuid($accountTmp->guid);
+
+    return AccountFabric::Insert($account);
   }
 }

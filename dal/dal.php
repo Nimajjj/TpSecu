@@ -71,4 +71,30 @@ class DAL {
 
     return $succeed;
   }
+
+  public function DbDelete(Query $_q) {
+    $query = "DELETE FROM " 
+      . $_q->table 
+      . " WHERE " 
+      . $_q->conditions["column"]
+      . $_q->conditions["condition"];
+
+    if (gettype($_q->conditions["value"]) != "integer") {
+      $query .= '"'
+        . $_q->conditions["value"]
+        . '";';
+    }
+    else {
+      $query .= $_q->conditions["value"]
+        . ";";
+    }
+
+    echo "<br>" . $query;
+
+    $preparedQuerry = $this->db->prepare($query);
+    $succeed = $preparedQuerry->execute();
+
+    return $succeed;
+
+  }
 }
