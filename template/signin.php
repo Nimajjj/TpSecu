@@ -1,10 +1,6 @@
-<h1>Sign in</h1>
+<?php ob_start(); ?>
 
-<a href="index.php">Index</a>
-<a href="signin.php">Sign in</a>
-<a href="signup.php">Sign up</a>
-<a href="change_pwd.php">Change pwd</a>
-<a href="signedup.php">Signed up</a>
+<h1>Sign in</h1>
 <br><br>
 
 <form action="" method="POST">
@@ -14,4 +10,6 @@
 </form>
 
 <?php
-require_once("vendor/autoload.php");
+$content = ob_get_clean();
+require('base.php')
+?>
