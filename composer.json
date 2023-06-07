@@ -1,0 +1,17 @@
+{
+    "name": "benjamin/app",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nimajjj",
+            "email": "benjamin.borello@aol.com"
+        }
+    ],
+    "require": {
+        "ext-mysqli": "*"
+    }
+}

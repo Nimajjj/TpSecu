@@ -1,10 +1,6 @@
-<h1>Sign up</h1>
+<?php ob_start(); ?>
 
-<a href="index.php">Index</a>
-<a href="signin.php">Sign in</a>
-<a href="signup.php">Sign up</a>
-<a href="change_pwd.php">Change pwd</a>
-<a href="signedup.php">Signed up</a>
+<h1>Sign up</h1>
 <br><br>
 
 <form action="" method="POST">
@@ -15,11 +11,12 @@
 </form>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/controller/signup.php");
-
-use App\Controller\SignUp;
+use App\Controller\SignUpController;
 
 if (isset($_POST["signup"])) {
-  $response = SignUp::Execute();
-  echo ($response) ? $response : "";
+  echo SignUpController::Execute();
 }
+
+$content = ob_get_clean();
+require('base.php')
+?>
