@@ -1,14 +1,20 @@
 <?php 
 require_once("vendor/autoload.php");
 
-$uri = substr($_SERVER['REQUEST_URI'], 1);
+use App\Controller\SignUpController;
+use App\Controller\VerifyController;
+
+$uri = substr(parse_url($_SERVER["REQUEST_URI"])["path"], 1);
 $method = $_SERVER['REQUEST_METHOD'];
 $isGetMethod = $method === 'GET';
 
 $view = "template/";
 
-if ($uri === 'signup' && $isGetMethod) {
+if ($uri === 'signup') {
   $view .= "signup.php";
+  if (isset($_POST["signup"])) {
+    echo SignUpController::Execute();
+  }
 }
 else if ($uri === "signin") {
   $view .= "signin.php";
@@ -21,6 +27,9 @@ else if ($uri === "signed_up") {
 }
 else if ($uri === "verify") {
   $view .= "verify.php";
+  if (isset($_GET["otp"])) {
+    echo VerifyController::Execute();
+  }
 }
 else {
   $view .= "root.php";

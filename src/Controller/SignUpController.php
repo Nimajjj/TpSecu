@@ -11,7 +11,7 @@ use App\Controller\Authentificator\IdentifyCase;
 use App\Controller\SecuredActioner\SecuredActioner;
 
 class SignUpController {
-  public static function Execute() : string {
+  public static function Execute() : ?string {
     $response = null;
     
     $email = $_POST["email"];
