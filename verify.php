@@ -8,7 +8,7 @@
 <br><br>
 
 <?php
-require_once("controller/secured_actioner/secured_actioner.php");
+require_once("vendor/autoload.php");
 
 use App\Controller\SecuredActioner\SecuredActioner;
 use App\Controller\SecuredActioner\OtpState;

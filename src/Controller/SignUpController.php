@@ -1,12 +1,6 @@
 <?php
 namespace App\Controller;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/user_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_tmp_fabric.php");
-require_once("authentificator/authentificator.php");
-require_once("authentificator/identifier.php");
-require_once("secured_actioner/secured_actioner.php");
-
 use App\Model\User;
 use App\Model\AccountTmp;
 use App\ModelFabric\UserFabric;
@@ -16,7 +10,7 @@ use App\Controller\Authentificator\Identifier;
 use App\Controller\Authentificator\IdentifyCase;
 use App\Controller\SecuredActioner\SecuredActioner;
 
-class SignUp {
+class SignUpController {
   public static function Execute() : string {
     $response = null;
     

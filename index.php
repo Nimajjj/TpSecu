@@ -8,8 +8,4 @@
 <br><br>
 
 <?php 
-require_once("dal/dal.php");
-require_once("dal/query.php");
-require_once("model_fabric/account_fabric.php");
-require_once("model/account.php");
-
+require_once("vendor/autoload.php");

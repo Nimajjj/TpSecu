@@ -1,18 +1,13 @@
 <?php
 namespace App\ModelFabric;
 
-require_once("a_model_fabric.php");
-require_once("user_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_tmp.php");
-
 use App\Dal\Query;
-use App\Model\AccountTmp;
 
-class AccountTmpFabric extends A_ModelFabric {
+class AccountFabric extends A_ModelFabric {
   // Select
   public static function SelectByGUID(string $_guid) {
     // prepare query
-    $query = new Query("accounttmp");
+    $query = new Query("account");
     $query->Condition("guid", "=", $_guid);
 
     // execute query
@@ -24,13 +19,13 @@ class AccountTmpFabric extends A_ModelFabric {
     }
 
     // create user model
-    $accountTmp = new AccountTmp(
+    $account = new Account(
       $row["pwd"],
       $row["salt"],
       $row["guid"]
     );
 
-    return $accountTmp;
+    return $account;
 
   }
 
@@ -38,13 +33,13 @@ class AccountTmpFabric extends A_ModelFabric {
   public static function SelectByEmail(string $_email) {
     $user = UserFabric::SelectByEmail($_email);
 
-    return ($user) ? self::SelectByGUID($user->guid) : null;
+    return self::SelectByGUID($user->guid);
   }
 
 
   // Insert
-  public static function Insert($_model): int {
-    $query = new Query("accounttmp");
+  public static function Insert($_model) {
+    $query = new Query("account");
     $query->Parameter([
       "pwd" => $_model->pwd,
       "salt" => $_model->salt,
@@ -55,12 +50,5 @@ class AccountTmpFabric extends A_ModelFabric {
     }
 
     return self::$dal->DbInsert($query);
-  }
-
-  public static function DeleteByGuid(string $_guid): int {
-    $query = new Query("accounttmp");
-    $query->Condition("guid", "=", $_guid);
-    
-    return self::$dal->DbDelete($query);
   }
 }

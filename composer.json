@@ -2,7 +2,7 @@
     "name": "benjamin/app",
     "autoload": {
         "psr-4": {
-            "Benjamin\\App\\": "./"
+            "App\\": "src/"
         }
     },
     "authors": [
@@ -11,5 +11,7 @@
             "email": "benjamin.borello@aol.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-mysqli": "*"
+    }
 }

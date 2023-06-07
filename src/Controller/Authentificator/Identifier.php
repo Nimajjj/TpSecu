@@ -1,10 +1,6 @@
 <?php
 namespace App\Controller\Authentificator;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/user_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_tmp_fabric.php");
-
 use App\ModelFabric\UserFabric;
 use App\ModelFabric\AccountFabric;
 use App\ModelFabric\AccountTmpFabric;

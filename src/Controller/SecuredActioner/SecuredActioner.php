@@ -1,14 +1,6 @@
 <?php
 namespace App\Controller\SecuredActioner;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/util/otp_generator.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model/account_otp.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_otp_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_tmp_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/user_fabric.php");
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/model_fabric/account_fabric.php");
-
 use App\Util\Debug;
 use App\Util\OtpGenerator;
 use App\Model\User;
@@ -18,12 +10,6 @@ use App\ModelFabric\UserFabric;
 use App\ModelFabric\AccountFabric;
 use App\ModelFabric\AccountOTPFabric;
 use App\ModelFabric\AccountTMPFabric;
-
-enum OtpState {
-  case WaitingForValidation;
-  case ValidityExpired;
-  case NotFound;
-}
 
 class SecuredActioner {
   public static function ProvideOTP(string $_guid) : string {

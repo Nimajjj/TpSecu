@@ -15,11 +15,10 @@
 </form>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . ("/controller/signup.php");
-
-use App\Controller\SignUp;
+require_once("vendor/autoload.php");
+use App\Controller\SignUpController;
 
 if (isset($_POST["signup"])) {
-  $response = SignUp::Execute();
+  $response = SignUpController::Execute();
   echo ($response) ? $response : "";
 }
