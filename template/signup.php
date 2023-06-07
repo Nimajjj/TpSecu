@@ -11,6 +11,12 @@
 </form>
 
 <?php
+use App\Controller\SignUpController;
+
+if (isset($_POST["signup"])) {
+  echo SignUpController::Execute();
+}
+
 $content = ob_get_clean();
 require('base.php')
 ?>

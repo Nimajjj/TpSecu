@@ -4,6 +4,12 @@
 <br><br>
 
 <?php
+use App\Controller\VerifyController;
+
+if (isset($_GET["otp"])) {
+  echo VerifyController::Execute();
+}
+
 $content = ob_get_clean();
 require('base.php')
 ?>
