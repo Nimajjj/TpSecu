@@ -23,6 +23,7 @@ class SessionFabric extends A_ModelFabric {
     $session = new Session(
       $row["token"],
       $row["salt"],
+      $row["validity"],
       $row["guid"]
     );
 
@@ -34,8 +35,9 @@ class SessionFabric extends A_ModelFabric {
   public static function Insert($_model) {
     $query = new Query("session");
     $query->Parameter([
-      "token" => $_model->token
-      "salt" => $_model->salt
+      "token" => $_model->token,
+      "salt" => $_model->salt,
+      "validity" => $_model->validity
     ]);
 
     if ($_model->guid) {
