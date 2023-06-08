@@ -4,12 +4,12 @@ namespace App\ModelFabric;
 use App\Dal\Query;
 use App\Model\Account;
 
-class AccountFabric extends A_ModelFabric {
+class SessionFabric extends A_ModelFabric {
   // Select
-  public static function SelectByGUID(string $_guid) {
+  public static function SelectByToken(string $_token) {
     // prepare query
-    $query = new Query("account");
-    $query->Condition("guid", "=", $_guid);
+    $query = new Query("session");
+    $query->Condition("token", "=", $_token);
 
     // execute query
     $row = self::$dal->DbSelect($query);
@@ -20,30 +20,22 @@ class AccountFabric extends A_ModelFabric {
     }
 
     // create user model
-    $account = new Account(
-      $row["pwd"],
+    $session = new Session(
+      $row["token"],
       $row["salt"],
       $row["guid"]
     );
 
-    return $account;
+    return $session;
 
   }
-
-
-  public static function SelectByEmail(string $_email) {
-    $user = UserFabric::SelectByEmail($_email);
-
-    return self::SelectByGUID($user->guid);
-  }
-
 
   // Insert
   public static function Insert($_model) {
-    $query = new Query("account");
+    $query = new Query("session");
     $query->Parameter([
-      "pwd" => $_model->pwd,
-      "salt" => $_model->salt,
+      "token" => $_model->token
+      "salt" => $_model->salt
     ]);
 
     if ($_model->guid) {
