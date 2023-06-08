@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Model\Account;
 use App\ModelFabric\AccountFabric;
+use App\Controller\Authorizer;
 
 class SignInController {
   public static function Execute(): ?string {
@@ -27,16 +28,10 @@ class SignInController {
       return $response;
     }
 
-    // Grant access
-
-    // Ask for token to Authorizer
-    // Ciffer token
-    // Provide token
+    // Grant session
+    $token = Authorizer::ProvideToken($targetAccount->guid);
+    setcookie("session", $token);
     
-    header("X-Token: NoupieLaSourie");
-    header("Location: /");
-
-    setcookie("session", "NouepieLaSourie", time() + 3600);
 
     $response = "You are connected!";
     return $response;
