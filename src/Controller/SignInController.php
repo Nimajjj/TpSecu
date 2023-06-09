@@ -36,6 +36,7 @@ class SignInController {
     
 
     $response = "You are connected!";
+    header("Location: /");
     return $response;
   }
 

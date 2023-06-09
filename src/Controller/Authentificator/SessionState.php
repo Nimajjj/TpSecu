@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Authorizer;
+namespace App\Controller\Authentificator;
 
 enum SessionState {
   case SignedIn;

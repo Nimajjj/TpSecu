@@ -2,8 +2,8 @@
 require_once("vendor/autoload.php");
 
 use App\Router\Router;
-use App\Controller\Authorizer\Authorizer;
-use App\Controller\Authorizer\SessionState;
+use App\Controller\Authentificator\Authentificator;
+use App\Controller\Authentificator\SessionState;
 use App\ModelFabric\UserFabric;
 
 // load .env file
@@ -13,6 +13,6 @@ Dotenv\Dotenv::createImmutable(__DIR__)->load();
 new Router();
 
 $guid = "";
-if (Authorizer::GetSessionState($guid) == SessionState::SignedIn) {
+if (Authentificator::GetSessionState($guid) == SessionState::SignedIn) {
   echo "<br>Welcome " . UserFabric::SelectByGuid($guid)->email . "<br>";
 }
