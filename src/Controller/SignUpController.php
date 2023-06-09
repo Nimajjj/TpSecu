@@ -42,7 +42,7 @@ class SignUpController {
     
     // Notify
     // The notifier should call the mailer here instead of the message below.
-    $verification_link = SecuredActioner::ProvideOTP($guid);
+    $verification_link = "/verify?otp=" . SecuredActioner::ProvideOTP($guid);
     $response = "<br><br>A verification email as been sent to : " 
       . $email
       . "<br>=== EMAIL ===<br>"

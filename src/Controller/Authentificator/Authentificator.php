@@ -24,6 +24,9 @@ class Authentificator {
 
     // get session from db
     $session = SessionFabric::SelectById($sessionId);
+    if (!$session) {
+      return SessionState::NoSessionSetted;
+    }
     $_guid = $session->guid;
 
     // cipher magic

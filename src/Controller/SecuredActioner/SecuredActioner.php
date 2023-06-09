@@ -23,7 +23,7 @@ class SecuredActioner {
 
     AccountOTPFabric::Insert($accountOtp);
 
-    return "/verify?otp=" . $otp;
+    return $otp;
   }
 
   public static function CheckOTP(string $_otp) : OtpState {

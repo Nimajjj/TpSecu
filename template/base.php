@@ -13,6 +13,7 @@
   <a href="/change_pwd">Change pwd</a>
   <a href="/signed_up">Signed up</a>
   <a href="/signout">Sign out</a>
+  <a href="/delete">Delete account</a>
 
   <?= $content ?>
 </body>
