@@ -1,12 +1,21 @@
-<h1>Hello World!</h1>
-
 <?php 
-require_once("dal/dal.php");
-require_once("dal/query.php");
-require_once("model_fabric/user_fabric.php");
+require_once("vendor/autoload.php");
 
+use App\Dal\Dal;
+use App\Dal\Query;
+use App\Router\Router;
+use App\Controller\Authentificator\Authentificator;
+use App\Controller\Authentificator\SessionState;
+use App\Controller\Authorizer\Authorizer;
+use App\ModelFabric\UserFabric;
 
+// load .env file
+Dotenv\Dotenv::createImmutable(__DIR__)->load();
 
-// DAL
-$user = UserFabric::SelectByGUID("12");
-var_dump($user);
+// handle routes
+new Router();
+
+$guid = "";
+if (Authentificator::GetSessionState($guid) == SessionState::SignedIn) {
+  echo "<br>Welcome " . UserFabric::SelectByGuid($guid)->email . "<br>";
+}
