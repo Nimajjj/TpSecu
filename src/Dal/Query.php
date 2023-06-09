@@ -6,6 +6,8 @@ class Query {
   public $conditions = [];
   public $parameters = [];
   public $select = "*";
+  public $column;
+  public $val;
   
   public function __construct($_table) {
     $this->table = $_table; 

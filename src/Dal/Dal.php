@@ -103,6 +103,36 @@ class DAL {
     $succeed = $preparedQuerry->execute();
 
     return $succeed;
+  }
 
+  public function DbUpdate(Query $_q) {
+    $query = "UPDATE "
+      . $_q->table
+      . " SET "
+      . $_q->column
+      . " = "
+      . '"' . $_q->val . '"'
+      . " WHERE ";
+      
+    $i = 0;
+    foreach($_q->conditions as $condition) {
+      $query .= $condition["column"] . $condition["condition"];
+
+      $query .= (gettype($condition["value"]) != "integer")
+        ? '"' . $condition["value"] . '"'
+        : $condition["value"];
+
+      $i += 1;
+      $query .= ($i < count($_q->conditions)) 
+        ? " and "
+        : ";";
+    }
+
+    echo "<br>" . $query;
+
+    $preparedQuerry = $this->db->prepare($query);
+    $succeed = $preparedQuerry->execute();
+
+    return $succeed;
   }
 }
