@@ -75,4 +75,12 @@ class SessionFabric extends A_ModelFabric {
 
     return self::$dal->DbInsert($query);
   }
+
+  // Delete
+  public static function DeleteOfGuid($_guid) {
+    $query = new Query("session");
+    $query->Condition("guid", "=", $_guid);
+
+    return self::$dal->DbDelete($query);
+  }
 }
