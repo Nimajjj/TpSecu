@@ -6,4 +6,5 @@ enum SessionState {
   case SessionExpired;
   case WrongToken;
   case NoSessionSetted;
+  case HashDontMatch;
 }
