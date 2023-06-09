@@ -6,6 +6,10 @@
 <?php
 use App\Controller\SignOutController;
 
+if (!App\Controller\Authorizer\Authorizer::IsAllowed("SignOut")) {
+  header("Location: /not_allowed");
+  return;
+}
 echo SignOutController::Execute();
 
 $content = ob_get_clean();

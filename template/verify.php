@@ -6,6 +6,9 @@
 <?php
 use App\Controller\VerifyController;
 
+if (!App\Controller\Authorizer\Authorizer::IsAllowed("Verify")) {
+  header("Location: /not_allowed");
+}
 if (isset($_GET["otp"])) {
   echo VerifyController::Execute();
 }

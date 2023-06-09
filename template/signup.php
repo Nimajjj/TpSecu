@@ -13,6 +13,9 @@
 <?php
 use App\Controller\SignUpController;
 
+if (!App\Controller\Authorizer\Authorizer::IsAllowed("SignUp")) {
+  header("Location: /not_allowed");
+}
 if (isset($_POST["signup"])) {
   echo SignUpController::Execute();
 }

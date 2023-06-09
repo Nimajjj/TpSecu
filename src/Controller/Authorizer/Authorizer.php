@@ -1,10 +1,46 @@
 <?php
 namespace App\Controller\Authorizer;
 
+use App\Dal\Dal;
+use App\Dal\Query;
 use App\Model\Session;
 use App\ModelFabric\SessionFabric;
+use App\Controller\Authentificator\Authentificator;
+use App\Controller\Authentificator\SessionState;
 
 class Authorizer {
+  public static function IsAllowed(string $_ws): bool {
+    $guid = "";
+    $dal = DAL::GetInstance();
+
+    // Guest
+    if (Authentificator::GetSessionState($guid) != SessionState::SignedIn) {
+      $query = new Query("publicauthorization");
+      $query->Condition("web_service", "=", $_ws);
+      $query->select = "web_service";
+
+      $webServices = $dal->DbSelect($query);
+      
+      return ($webServices != NULL);
+    }
+
+    // Signed in
+    $query = new Query("accountauthorization");
+    $query->Condition("guid", "=", $guid);
+    $query->select = "web_service";
+
+    $rawWebServices = $dal->DbSelect($query)["web_service"];
+    $webServices = json_decode($rawWebServices, true);
+    
+    foreach ($webServices as $ws) {
+      if ($ws == $_ws) {
+        return true;
+      }
+    }
+  
+    return false;
+  }
+
   public static function ProvideToken(string $_guid, int &$_sessionId): string {
     // generate token and salt
     $salt = uniqid();

@@ -12,6 +12,9 @@
 <?php
 use App\Controller\SignInController;
 
+if (!App\Controller\Authorizer\Authorizer::IsAllowed("SignIn")) {
+  header("Location: /not_allowed");
+}
 if (isset($_POST["signin"])) {
   echo SignInController::Execute();
 }

@@ -12,6 +12,10 @@
 <?php
 use App\Controller\ChangePwdController;
 
+if (!App\Controller\Authorizer\Authorizer::IsAllowed("ChangePwd")) {
+  header("Location: /not_allowed");
+}
+
 if (isset($_POST["change"])) {
   echo ChangePwdController::Execute();
 }

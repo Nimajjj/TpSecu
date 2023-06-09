@@ -10,6 +10,10 @@
 <?php
 use App\Controller\DeleteController;
 
+if (!App\Controller\Authorizer\Authorizer::IsAllowed("DeleteAccount")) {
+  header("Location: /not_allowed");
+}
+
 if (isset($_POST["delete"])) {
   echo DeleteController::Execute();
 }
