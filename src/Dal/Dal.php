@@ -1,8 +1,6 @@
 <?php
 namespace App\Dal;
 
-require_once("Dbconfig.php");
-
 use mysqli;
 
 class DAL {

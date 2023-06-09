@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Model\Account;
 use App\ModelFabric\AccountFabric;
-use App\Controller\Authorizer;
+use App\Controller\Authorizer\Authorizer;
 
 class SignInController {
   public static function Execute(): ?string {
@@ -28,14 +28,18 @@ class SignInController {
       return $response;
     }
 
-    // Grant session
-    $token = Authorizer::ProvideToken($targetAccount->guid);
-    setcookie("session", $token);
+    // Grant session (for 30 minutes)
+    $sessionId = 1;
+    $sessionToken = Authorizer::ProvideToken($targetAccount->guid, $sessionId);
+    setcookie("session[id]", $sessionId, time() + 1800);
+    setcookie("session[token]", $sessionToken, time() + 1800);
     
 
     $response = "You are connected!";
     return $response;
   }
+
+ 
 
 
   private static function comparePwd(Account $_target, string $_pwd): bool {
