@@ -69,7 +69,7 @@ class SignUpController {
     }
 
     // create temp account and hash pwd
-    $salt = random_bytes(16);
+    $salt = uniqid();
     
     $accountTmp = new AccountTmp(
       hash("sha512", $_pwd . $salt),

@@ -2,6 +2,7 @@
 namespace App\ModelFabric;
 
 use App\Dal\Query;
+use App\Model\Account;
 
 class AccountFabric extends A_ModelFabric {
   // Select

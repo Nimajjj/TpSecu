@@ -1,8 +1,6 @@
 <?php
 namespace App\Dal;
 
-require_once("Dbconfig.php");
-
 use mysqli;
 
 class DAL {
@@ -10,7 +8,12 @@ class DAL {
   private $db = null;
   
   private function __construct() {
-    $this->db = new mysqli(HOST, USERNAME, PASSWORD, DB_NAME);
+    $this->db = new mysqli(
+      $_ENV["HOST"],
+      $_ENV["USERNAME"],
+      $_ENV["PASSWORD"],
+      $_ENV["DB_NAME"]
+    );
   }
   
   public static function GetInstance() {
@@ -37,7 +40,7 @@ class DAL {
         . ";";
     }
 
-    echo "<br>" . $query;
+    echo $query . "<br>";
 
     $result = $this->db->query($query) or die("Unable to select db");
     $row = $result->fetch_assoc();
@@ -64,7 +67,7 @@ class DAL {
 
     $query .= ") VALUES (" . $interogation . ");";
 
-    echo "<br>" . $query;
+    echo $query . "<br>";
 
     $preparedQuerry = $this->db->prepare($query);
     $succeed = $preparedQuerry->execute($data);
