@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Model\Account;
 use App\ModelFabric\AccountFabric;
 use App\Controller\Authorizer\Authorizer;
+use App\ThreatMonitor\ThreatMonitor;
 
 class SignInController {
   public static function Execute(): ?string {
@@ -20,7 +21,13 @@ class SignInController {
     }
 
     // Add attempts to Threat Monitor.
-    // Verify is attempts does not exceed max.
+    ThreatMonitor::AddSigninAttempt($targetAccount->guid);
+
+    // Verify if attempts does not exceed max.
+    if (ThreatMonitor::IsSigninAttemptsExceed($targetAccount->guid)) {
+      $response = "<br>You exceed max signin attempts.<br>";
+      return $response;
+    }
 
     // Compare password
     if (!self::comparePwd($targetAccount, $pwd)) {
