@@ -24,20 +24,22 @@ class DAL {
   }
 
   public function DbSelect(Query $_q) {
-    $query = "SELECT * FROM " 
+    $query = "SELECT " . $_q->select . " FROM " 
       . $_q->table 
-      . " WHERE " 
-      . $_q->conditions["column"]
-      . $_q->conditions["condition"];
+      . " WHERE ";
 
-    if (gettype($_q->conditions["value"]) != "integer") {
-      $query .= '"'
-        . $_q->conditions["value"]
-        . '";';
-    }
-    else {
-      $query .= $_q->conditions["value"]
-        . ";";
+    $i = 0;
+    foreach($_q->conditions as $condition) {
+      $query .= $condition["column"] . $condition["condition"];
+
+      $query .= (gettype($condition["value"]) != "integer")
+        ? '"' . $condition["value"] . '"'
+        : $condition["value"];
+
+      $i += 1;
+      $query .= ($i < count($_q->conditions)) 
+        ? " and "
+        : ";";
     }
 
     echo $query . "<br>";

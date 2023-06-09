@@ -5,6 +5,7 @@ class Query {
   public $table;
   public $conditions = [];
   public $parameters = [];
+  public $select = "*";
   
   public function __construct($_table) {
     $this->table = $_table; 
@@ -12,11 +13,14 @@ class Query {
   }
 
   public function Condition($_column, $_condition, $_value) {
-    $this->conditions = [
+    array_push(
+      $this->conditions, 
+      [ 
         'column' => $_column,
         'condition' => $_condition, 
         'value' => $_value
-    ];
+      ]
+    );
     return $this;     
   }
 
