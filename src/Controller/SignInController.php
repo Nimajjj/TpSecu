@@ -22,10 +22,11 @@ class SignInController {
 
     // Add attempts to Threat Monitor.
     ThreatMonitor::AddSigninAttempt($targetAccount->guid);
+    $a = ThreatMonitor::IsSigninAttemptsExceed($targetAccount->guid);
 
     // Verify if attempts does not exceed max.
-    if (ThreatMonitor::IsSigninAttemptsExceed($targetAccount->guid)) {
-      $response = "<br>You exceed max signin attempts.<br>";
+    if ($a > 3) {
+      $response = "<br>You exceed max signin attempts: " . $a . "<br>";
       return $response;
     }
 
@@ -42,8 +43,8 @@ class SignInController {
     setcookie("session[token]", $sessionToken, time() + 1800);
     
 
-    $response = "You are connected!";
-    header("Location: /");
+    $response = "You are connected!".$a;
+    //header("Location: /");
     return $response;
   }
 
