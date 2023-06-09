@@ -4,5 +4,5 @@
 
 Benjamin Borello
 
-If an error occured during database connection please enter new MySQL user credential.
-.env file contains database credential
+If an error occured during database connection please enter new MySQL user credential.  
+Please provide correct sql credential in the .env file
