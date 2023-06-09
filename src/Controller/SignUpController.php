@@ -26,6 +26,30 @@ class SignUpController {
       return $response;
     }
 
+    // Password is at least 8 char long
+    if (strlen($pwd) < 7) {
+      $response = "<br>Password must be at least 8 characters long.";
+      return $response;
+    }
+
+    // Contains lowercase letter 
+    if (!preg_match('/[a-z]/', $pwd)) {
+      $response = "<br>Password must contains at least 1 lowercase letter";
+      return $response;
+    }
+
+    // Contains uppercase letter
+    if (!preg_match('/[A-Z]/', $pwd)) {
+      $response = "<br>Password must contains at least 1 uppercase letter";
+      return $response;
+    }
+
+    // Contains digits 
+    if (!preg_match('/\d/', $pwd)) {    
+      $response = "<br>Password must contains at least 1 digit";
+      return $response;
+    }
+
     // Run chain of responsability
 
     // Identify
