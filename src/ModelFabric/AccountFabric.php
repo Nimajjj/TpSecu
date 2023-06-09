@@ -33,6 +33,9 @@ class AccountFabric extends A_ModelFabric {
 
   public static function SelectByEmail(string $_email) {
     $user = UserFabric::SelectByEmail($_email);
+    if (!$user) {
+      return null;
+    }
 
     return self::SelectByGUID($user->guid);
   }
