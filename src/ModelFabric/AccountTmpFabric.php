@@ -39,7 +39,7 @@ class AccountTmpFabric extends A_ModelFabric {
 
 
   // Insert
-  public static function Insert($_model): int {
+  public static function Insert(mixed $_model): bool {
     $query = new Query("accounttmp");
     $query->Parameter([
       "pwd" => $_model->pwd,
@@ -53,7 +53,7 @@ class AccountTmpFabric extends A_ModelFabric {
     return self::$dal->DbInsert($query);
   }
 
-  public static function DeleteByGuid(string $_guid): int {
+  public static function DeleteByGuid(string $_guid): bool {
     $query = new Query("accounttmp");
     $query->Condition("guid", "=", $_guid);
     

@@ -61,7 +61,7 @@ class SessionFabric extends A_ModelFabric {
   }
 
   // Insert
-  public static function Insert($_model) {
+  public static function Insert(mixed $_model): bool {
     $query = new Query("session");
     $query->Parameter([
       "token" => $_model->token,
@@ -77,7 +77,7 @@ class SessionFabric extends A_ModelFabric {
   }
 
   // Delete
-  public static function DeleteOfGuid($_guid) {
+  public static function DeleteOfGuid(string $_guid): bool {
     $query = new Query("session");
     $query->Condition("guid", "=", $_guid);
 

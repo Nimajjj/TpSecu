@@ -55,7 +55,7 @@ class AccountOtpFabric extends A_ModelFabric {
 
 
   // Insert
-  public static function Insert($_model) {
+  public static function Insert(mixed $_model): bool {
     $query = new Query("accountotp");
     $query->Parameter([
       "otp" => $_model->otp,
@@ -70,7 +70,7 @@ class AccountOtpFabric extends A_ModelFabric {
   }
 
   // Delete
-  public static function DeleteByOTp(string $_otp): int {
+  public static function DeleteByOTp(string $_otp): bool {
     $query = new Query("accountotp");
     $query->Condition("otp", "=", $_otp);
     

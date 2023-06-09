@@ -11,6 +11,12 @@ use App\ModelFabric\AccountFabric;
 use App\ModelFabric\AccountOTPFabric;
 use App\ModelFabric\AccountTMPFabric;
 
+enum OtpState {
+  case WaitingForValidation;
+  case ValidityExpired;
+  case NotFound;
+}
+
 class SecuredActioner {
   public static function ProvideOTP(string $_guid) : string {
     $otp = OtpGenerator::Gen();

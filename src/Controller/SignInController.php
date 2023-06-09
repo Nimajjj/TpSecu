@@ -7,8 +7,8 @@ use App\Controller\Authorizer\Authorizer;
 use App\ThreatMonitor\ThreatMonitor;
 
 class SignInController {
-  public static function Execute(): ?string {
-    $response = null;
+  public static function Execute(): string {
+    $response = "";
 
     $email = $_POST["email"];
     $pwd = $_POST["pwd"];
@@ -43,12 +43,10 @@ class SignInController {
     setcookie("session[token]", $sessionToken, time() + 1800);
     
 
-    $response = "You are connected!".$a;
+    $response = "You are connected!";
     //header("Location: /");
     return $response;
   }
-
- 
 
 
   private static function comparePwd(Account $_target, string $_pwd): bool {

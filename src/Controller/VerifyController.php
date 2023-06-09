@@ -5,16 +5,16 @@ use App\Controller\SecuredActioner\SecuredActioner;
 use App\Controller\SecuredActioner\OtpState;
 
 class VerifyController {
-  public static function Execute(): ?string {
-    $response = null;
+  public static function Execute(): string {
+    $response = "";
 
     $otpState = SecuredActioner::CheckOTP($_GET["otp"]);
    
     switch ($otpState) {
       case OtpState::WaitingForValidation:
-        $response = "Waiting for validation";
         SecuredActioner::TransfertTMP($_GET["otp"]);
         SecuredActioner::ClearOTP($_GET["otp"]);
+        $response = "Your account has been validated<br>Please Sign in";
         break;
 
       case OtpState::ValidityExpired: // write err

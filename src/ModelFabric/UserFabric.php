@@ -53,7 +53,7 @@ class UserFabric extends A_ModelFabric {
 
 
   // Insert
-  public static function Insert($_model) {
+  public static function Insert(mixed $_model): bool {
     $query = new Query("user");
     $query->Parameter([
       "guid" => $_model->guid,

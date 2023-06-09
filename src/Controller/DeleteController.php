@@ -9,7 +9,7 @@ use App\Dal\Dal;
 use App\Dal\Query;
 
 class DeleteController {
-  public static function Execute(): ?string {
+  public static function Execute(): string {
     $guid = "";
     if (Authentificator::GetSessionState($guid) != SessionState::SignedIn) {
       return "you are not connected";

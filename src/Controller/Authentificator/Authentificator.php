@@ -4,6 +4,14 @@ namespace App\Controller\Authentificator;
 use App\Model\Session;
 use App\ModelFabric\SessionFabric;
 
+enum SessionState {
+  case SignedIn;
+  case SessionExpired;
+  case WrongToken;
+  case NoSessionSetted;
+  case HashDontMatch;
+}
+
 class Authentificator {
   public static function Identify(string $_email, string $_pwd) : IdentifyCase {
     return Identifier::Identify($_email, $_pwd);

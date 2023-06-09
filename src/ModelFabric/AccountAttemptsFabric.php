@@ -6,7 +6,7 @@ use App\Model\AccountAttempts;
 
 class AccountAttemptsFabric extends A_ModelFabric {
   // Select
-  public static function SelectByGUID(string $_guid) {
+  public static function SelectByGUID(string $_guid): AccountAttempts {
     // prepare query
     $query = new Query("accountattempts");
     $query->Condition("guid", "=", $_guid);
@@ -29,7 +29,7 @@ class AccountAttemptsFabric extends A_ModelFabric {
 
   }
 
-  public static function CountAttemptsOfGuid($_guid): int {
+  public static function CountAttemptsOfGuid(string $_guid): int {
     $query = new Query("accountattempts");
     $query->Condition("guid", "=", $_guid);
     $query->Condition("attempt_at", ">", date("Y-m-d H:i:s", time() - 300));  // less than 5 minutes ago
@@ -48,7 +48,7 @@ class AccountAttemptsFabric extends A_ModelFabric {
 
 
   // Insert
-  public static function Insert($_model) {
+  public static function Insert(mixed $_model): bool {
     $query = new Query("accountattempts");
     $query->Parameter([
       "attempt_at" => $_model->attempt_at,

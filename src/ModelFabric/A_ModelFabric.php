@@ -14,7 +14,7 @@ abstract class A_ModelFabric {
   abstract static function SelectByGUID(string $_guid);
 
   // Insert
-  abstract static function Insert(mixed $_model);
+  abstract static function Insert(mixed $_model): bool;
 }
 
 // Only exception where i use a public (static) method from an abstract class

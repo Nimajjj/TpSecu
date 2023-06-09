@@ -14,7 +14,7 @@ class Query {
     return $this;
   }
 
-  public function Condition($_column, $_condition, $_value) {
+  public function Condition(string $_column,string  $_condition,string  $_value) {
     array_push(
       $this->conditions, 
       [ 
@@ -26,7 +26,7 @@ class Query {
     return $this;     
   }
 
-  public function Parameter($_parameters) {
+  public function Parameter(array $_parameters) {
     foreach ($_parameters as $key => $value) {
       $this->parameters[$key] = $value;
     }
