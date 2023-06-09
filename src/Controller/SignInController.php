@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Model\Account;
 use App\ModelFabric\AccountFabric;
 use App\Controller\Authorizer\Authorizer;
+use App\ThreatMonitor\ThreatMonitor;
 
 class SignInController {
   public static function Execute(): ?string {
@@ -20,7 +21,14 @@ class SignInController {
     }
 
     // Add attempts to Threat Monitor.
-    // Verify is attempts does not exceed max.
+    ThreatMonitor::AddSigninAttempt($targetAccount->guid);
+    $a = ThreatMonitor::IsSigninAttemptsExceed($targetAccount->guid);
+
+    // Verify if attempts does not exceed max.
+    if ($a > 3) {
+      $response = "<br>You exceed max signin attempts: " . $a . "<br>";
+      return $response;
+    }
 
     // Compare password
     if (!self::comparePwd($targetAccount, $pwd)) {
@@ -35,8 +43,8 @@ class SignInController {
     setcookie("session[token]", $sessionToken, time() + 1800);
     
 
-    $response = "You are connected!";
-    header("Location: /");
+    $response = "You are connected!".$a;
+    //header("Location: /");
     return $response;
   }
 
