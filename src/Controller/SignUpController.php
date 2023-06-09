@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Dal\Dal;
+use App\Dal\Query;
 use App\Model\User;
 use App\Model\AccountTmp;
 use App\ModelFabric\UserFabric;
@@ -81,6 +83,14 @@ class SignUpController {
       // problem
       return "An error occured during accountTmp creation";
     }
+
+    $dal = DAL::GetInstance();
+    $query = new Query("accountauthorization");
+    $query->Parameter([
+      "guid" => $guid,
+      "web_service" => '["Root", "SignOut", "ChangePwd", "DeleteAccount"]'
+    ]);
+    $dal->DbInsert($query);
 
     $_guid = $guid;
     return null;
