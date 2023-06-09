@@ -39,7 +39,7 @@ class Authorizer {
   }
  
  
-  public static function GetSessionState(): SessionState {
+  public static function GetSessionState(string &$_guid): SessionState {
     // if no session is not set
     if (!isset($_COOKIE["session"])) {
       return SessionState::NoSessionSetted;
@@ -48,8 +48,11 @@ class Authorizer {
     $sessionId = $_COOKIE['session']['id'];   
     $sessionToken = $_COOKIE['session']['token'];
 
+    // get session from db
     $session = SessionFabric::SelectById($sessionId);
+    $_guid = $session->guid;
 
+    // cipher magic
     $first_key = base64_decode($_ENV["TOKEN_SECRET"]);
     $second_key = base64_decode($_ENV["TOKEN_SECRET_2"]);    
     $mix = base64_decode($sessionToken);
@@ -64,6 +67,7 @@ class Authorizer {
     $data = openssl_decrypt($first_encrypted,$method,$first_key,OPENSSL_RAW_DATA,$iv);
     $second_encrypted_new = hash_hmac('sha3-512', $first_encrypted, $second_key, TRUE);
         
+    // problem
     if (!hash_equals($second_encrypted,$second_encrypted_new)) {
       return SessionState::HashDontMatch;
     }
